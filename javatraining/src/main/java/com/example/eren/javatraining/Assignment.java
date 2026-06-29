@@ -22,7 +22,32 @@ public class Assignment {
 		}
 	}
 	
-	public static Day getDay(int input) {
+	public static String daySwitch(int input) {
+        System.out.println("-- Days of the Week: Switch --");
+        
+		switch (input) {
+			case 1: 
+				return "Monday";
+			case 2:
+				return "Tuesday";
+			case 3:
+				return "Wednesday";
+			case 4:
+				return "Thursday";
+			case 5:
+				return "Friday";
+			case 6:
+				return "Saturday";
+			case 7:
+				return "Sunday";
+			default:
+				return "Invalid day number.";
+		}
+	}
+	
+	public static Day dayPattern(int input) {
+        System.out.println("-- Days of the Week: Pattern Matching --");
+
 		return switch (input) {
 			case 1 -> Day.Monday;
 			case 2 -> Day.Tuesday;
@@ -31,7 +56,10 @@ public class Assignment {
 			case 5 -> Day.Friday;
 			case 6 -> Day.Saturday;
 			case 7 -> Day.Sunday;
-			default -> null;
+		    default -> {
+		        System.out.println("Invalid day number.");
+		        yield null;
+		    }
 		};
 	}
 	
@@ -95,11 +123,8 @@ public class Assignment {
     	System.out.print("Enter an integer from 1-7: ");
         int bInput = scanner.nextInt();
         
-        if (getDay(bInput) == null) {
-        	System.out.println("Invalid day number.");
-        } else {
-            System.out.println(getDay(bInput));
-        }
+        System.out.println(daySwitch(bInput));
+        dayPattern(bInput);
 	}
 	
 	public static void runPrintPyramid(Scanner scanner) {
