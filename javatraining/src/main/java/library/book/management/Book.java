@@ -4,12 +4,11 @@ public class Book {
 	
 	private String title;
 	private String author;
-	private boolean available;
+	private boolean available = true;
 	
-	public Book(String title, String author, boolean available) {
+	public Book(String title, String author) {
 		this.title = title;
 		this.author = author;
-		this.available = available;
 	}
 	
 	public void borrowBook() {

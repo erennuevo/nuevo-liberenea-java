@@ -21,7 +21,7 @@ public class Library {
                 .filter(book -> book.getTitle().equals(title))
                 .findFirst()
                 .orElse(null);
-        if (foundBook.equals(null)) {
+        if (foundBook == null) {
         	System.out.println("This book was not found.");
         } else {
     		foundBook.borrowBook();
@@ -33,7 +33,7 @@ public class Library {
                 .filter(book -> book.getTitle().equals(title))
                 .findFirst()
                 .orElse(null);
-		if (foundBook.equals(null)) {
+		if (foundBook == null) {
         	System.out.println("This book was not found.");
         } else {
     		foundBook.returnBook();

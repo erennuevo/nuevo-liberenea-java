@@ -5,9 +5,9 @@ public class Main {
 	public static void main(String args[]) {
 		Library library = new Library();
 		
-		Book book1 = new Book("Harry Potter", "JK Rowling", true);
-		Book book2 = new Book("Percy Jackson", "Rick Riordan", true);
-		Book book3 = new Book("Alice in Wonderland", "Lewis Carroll", true);
+		Book book1 = new Book("Harry Potter", "JK Rowling");
+		Book book2 = new Book("Percy Jackson", "Rick Riordan");
+		Book book3 = new Book("Alice in Wonderland", "Lewis Carroll");
 		
 		System.out.println("-- ADDING BOOKS... --");
 		library.addBook(book1);
