@@ -1,14 +1,15 @@
 package payment.processing.system;
 
+/* I was able to demonstrate inheritance by creating a class hierarchy.
+ * CreditCard is a concrete hild class of PhysicalPayment, inheriting the balance field. */
 public final class CreditCard extends PhysicalPayment 
 	implements PaymentSystem {
 	
 	private final int cardNumber;
-	private int balance;
 	
 	public CreditCard(int cardNumber, int balance) {
 		this.cardNumber = cardNumber;
-		this.balance = balance; 
+		super(balance);
 	}
 	
 	@Override
@@ -18,8 +19,12 @@ public final class CreditCard extends PhysicalPayment
 	
 	@Override
 	public void payAmount(int amount) {
-		balance -= amount;
-		System.out.println("Credit Card balance deducted by " + amount + ". New balance is: " + balance);
+		if (balance > amount) {
+			balance -= amount;
+			System.out.println("Credit Card balance deducted by " + amount + ". New balance is: " + balance);
+		} else {
+			System.out.println("Credit Card balance insufficient.");
+		}
 	}
 
 }
