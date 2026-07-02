@@ -1,11 +1,9 @@
 package employee.analytics.system;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,17 +28,14 @@ public class Main {
 	    employeeList.add(new Employee("Bob", "IT", 59000)); // duplicate name
 		
 	    // A. Remove duplicate employee names
-        Set<String> duplicateEmployees = new HashSet<>();
-        List<Employee> cleanedEmployees = new ArrayList<>();
+        Set<String> noDuplicateNames = new HashSet<>();
 
         for (Employee employee : employeeList) {
-            if (duplicateEmployees.add(employee.getName())) {
-                cleanedEmployees.add(employee);
-            }
+        	noDuplicateNames.add(employee.getName());
         }
 
-        for (Employee employee : cleanedEmployees) {
-            System.out.println(employee.getName());
+        for (String name : noDuplicateNames) {
+            System.out.println(name);
         }
         
         System.out.println();
@@ -88,7 +83,7 @@ public class Main {
         // E. Create a Set of all unique salaries
         Set<Double> uniqueSalaries = new TreeSet<>();
         
-        for (Employee employee : cleanedEmployees) {
+        for (Employee employee : employeeList) {
         	uniqueSalaries.add(employee.getSalary());
         }
         
