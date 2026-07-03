@@ -1,4 +1,4 @@
-package payment.processing.system;
+package day3.paymentsystem;
 
 /* Polymorphism is demonstrated here because I was able to instantiate
  * three different objects belonging to the same class, PaymentSystem. 

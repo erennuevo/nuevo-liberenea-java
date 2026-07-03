@@ -1,4 +1,4 @@
-package java.basics;
+package day1.javabasics;
 
 import java.util.Scanner;
 
@@ -124,7 +124,7 @@ public class Assignment {
         int bInput = scanner.nextInt();
         
         System.out.println(daySwitch(bInput));
-        dayPattern(bInput);
+        System.out.println(dayPattern(bInput));
 	}
 	
 	public static void runPrintPyramid(Scanner scanner) {
@@ -146,7 +146,7 @@ public class Assignment {
         System.out.print("Which program will be tested? \n(A) Blackjack \n(B) Pattern Matching \n(C) Number Pyramid \nEnter choice: ");
         String selection = scanner.nextLine();
             
-        switch (selection) {
+        switch (selection.toUpperCase()) {
             case "A" -> runBlackjack(scanner);
             case "B" -> runPatternMatching(scanner);
             case "C" -> runPrintPyramid(scanner);

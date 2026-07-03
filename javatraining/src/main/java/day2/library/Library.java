@@ -1,4 +1,4 @@
-package library.book.management;
+package day2.library;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package payment.processing.system;
+package day3.paymentsystem;
 
 /* Abstraction is demonstrated in the PaymentSystem interface because it defines
  * what a payment system can do, but hides how it is actually done. */
