@@ -1,4 +1,4 @@
-package payment.processing.system;
+package day3.paymentsystem;
 
 /* I was able to demonstrate inheritance by creating a class hierarchy.
  * CreditCard is a concrete hild class of PhysicalPayment, inheriting the balance field. */

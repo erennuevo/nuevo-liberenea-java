@@ -1,4 +1,4 @@
-package payment.processing.system;
+package day3.paymentsystem;
 
 /* Inheritance and encapsulation are demonstrated through the class hierarchy. 
  * The balance state is defined in the abstract base classes and protected from 
