@@ -6,8 +6,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.channels.FileChannel;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +35,7 @@ class LogAnalyzerTest {
         File summary = new File("resources/summary.txt");
         if (summary.exists()) {
         	summary.setWritable(true);
+        	summary.delete();
         }
     }
 
@@ -153,9 +159,14 @@ class LogAnalyzerTest {
 		String file = "";
 		
 		LogAnalyzer.main(new String[] {file});
-				
+			
 		String expected = "Log file not found." + System.lineSeparator();
 		assertEquals(expected, outContent.toString());
+		
+		assertThrows(NoSuchFileException.class, () -> {
+			Files.readString(Path.of("resources/summary.txt"));
+		});
+		
 	}
 	
 	/**
@@ -163,34 +174,40 @@ class LogAnalyzerTest {
 	 * cannot be written into (IOException).
 	 */
 	@Test
-	void exec007() {
+	void exec007() throws IOException {
 	    File summary = new File("resources/summary.txt");
+	    summary.createNewFile();
 	    summary.setReadOnly();
 	    
 	    LogAnalyzer.main(new String[] {"resources/server.log"});
 	    
 	    String expected = "Error writing summary file." + System.lineSeparator();
-		assertEquals(expected, outContent.toString());
+	    assertEquals(expected, outContent.toString());
 	}
 	
 	/**
 	 * Should output "Error reading file." when input file 
 	 * is found but not read (IOException).
-	 * NOTE: Not working yet
+	 * NOTE: Not working on MacOS, but works in Windows
 	 */
 	@Test
-	@Disabled
 	void exec008() throws IOException {    
-		File summary = new File("resources/server.log");
-	    summary.createNewFile();
-	    summary.setReadable(false, false);
+		Path logPath = Path.of("src/test/resources/exec008/server.log");
 	    
-	    LogAnalyzer.main(new String[] {"resources/server.log"});
+		FileChannel.open(logPath, StandardOpenOption.READ, StandardOpenOption.WRITE).lock();
+	    
+	    LogAnalyzer.main(new String[] {logPath.toString()});
 	    
 	    String expected = "Error reading file." + System.lineSeparator();
 		assertEquals(expected, outContent.toString());
-		
-	    summary.setReadable(true, false);
+	}
+	
+	/**
+	 * Should initialize a new LogAnalyzer class.
+	 */
+	@Test
+	void exec009() {
+		new LogAnalyzer();
 	}
 
 }
