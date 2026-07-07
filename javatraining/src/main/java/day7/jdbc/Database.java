@@ -89,33 +89,36 @@ public class Database {
         String email = scanner.nextLine();
 		ResultSet rs = checkExistingEmail(scanner, con, email);
 		
-		if (rs.next()) {
-			System.out.print("Enter current password: ");
-			String oldPassword = scanner.nextLine();
-			
-			if (oldPassword.equals(rs.getString("password"))) {
-				System.out.print("Enter a new password: ");
-				String newPassword = scanner.nextLine();
-				
-				System.out.print("Confirm password: ");
-				String confirmPassword = scanner.nextLine();
-				 
-				if (newPassword.equals(confirmPassword)) {
-					PreparedStatement ps2 = con.prepareStatement(UPDATEPASSWORD);
-					ps2.setString(1, newPassword);
-					ps2.setString(2, rs.getString("email"));
-					
-					ps2.executeUpdate();
-					System.out.println("Password for " + rs.getString("email") + " was successfully changed.");
-				} else {
-					System.out.println("Passwords did not match.");
-				}
-			} else {
-				System.out.println("Incorrect password.");
-			}
-		} else {
-			System.out.println("No user was found.");
+		if (!rs.next()) {
+			System.out.println("No students found.");
+			return;
 		}
+		
+		System.out.print("Enter current password: ");
+		String oldPassword = scanner.nextLine();
+		
+		if (!oldPassword.equals(rs.getString("password"))) {
+	        System.out.println("Incorrect password.");
+	        return;
+	    }
+		
+		System.out.print("Enter a new password: ");
+		String newPassword = scanner.nextLine();
+		
+		System.out.print("Confirm password: ");
+		String confirmPassword = scanner.nextLine();
+		
+		if (!newPassword.equals(confirmPassword)) {
+			System.out.println("Passwords did not match.");
+			return;
+		}
+		
+		PreparedStatement ps2 = con.prepareStatement(UPDATEPASSWORD);
+		ps2.setString(1, newPassword);
+		ps2.setString(2, rs.getString("email"));
+		
+		ps2.executeUpdate();
+		System.out.println("Password for " + rs.getString("email") + " was successfully changed.");
 	}
 	
 	private static void deleteStudent(Scanner scanner, Connection con) throws SQLException {
@@ -123,29 +126,30 @@ public class Database {
         String email = scanner.nextLine();
 		ResultSet rs = checkExistingEmail(scanner, con, email);
 		
-		if (rs.next()) {
-			System.out.print("Enter password to confirm deletion: ");
-			String password = scanner.nextLine();
-			
-			if (password.equals(rs.getString("password"))) {
-				System.out.print("Confirm password: ");
-				String confirmPassword = scanner.nextLine();
-				 
-				if (password.equals(confirmPassword)) {
-					PreparedStatement ps2 = con.prepareStatement(DELETESTUDENT);
-					ps2.setString(1, rs.getString("email"));
-					
-					ps2.executeUpdate();
-					System.out.println("User " + rs.getString("email") + " was successfully deleted.");
-				} else {
-					System.out.println("Passwords did not match.");
-				}
-			} else {
-				System.out.println("Incorrect password.");
-			}
-		} else {
+		if (!rs.next()) {
 			System.out.println("No students found.");
+			return;
 		}
+		
+		System.out.print("Enter password to confirm deletion: ");
+		String password = scanner.nextLine();
+		
+		if (!password.equals(rs.getString("password"))) {
+	        System.out.println("Incorrect password.");
+	        return;
+	    }
+		
+		System.out.print("Confirm password: ");
+	    String confirmPassword = scanner.nextLine();
+	    if (!password.equals(confirmPassword)) {
+	        System.out.println("Passwords did not match.");
+	        return;
+	    }
+	    
+		PreparedStatement ps2 = con.prepareStatement(DELETESTUDENT);
+		ps2.setString(1, rs.getString("email"));
+		ps2.executeUpdate();
+		System.out.println("User " + rs.getString("email") + " was successfully deleted.");
 	}
 	
 	public static void main(String[] args) throws SQLException {
@@ -176,6 +180,7 @@ public class Database {
             }
         }
         
+        con.close();
         scanner.close();
 	}
 
